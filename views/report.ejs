@@ -1,10 +1,11 @@
 <%- include('../partials/head'); %>
+<%- include('../partials/nav'); %>
 
 <div id="center-content">
     <div id="name">Report Phone Scam</div>
     <div class="description">Received a scam phone call? Report here so we can collect data and empower others.</div>
     <div id="report-form">
-        <label for="phonenumber">Scam Phone Number:</label>
+        <label for="phonenumber">Scam Phone Number</label>
         <input type="tel" id="phonenumber" name="phonenumber" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
         <label for="scamtype">Scam Type</label>
         <select id="scamtype" name="scamtype">
@@ -21,7 +22,7 @@
         <span id="valid"></span><span id="invalid"></span>
     </div>
     <div id="explore">
-        <a class="navigation">Explore our data!</a>
+        <a class="navigation" href="/explore">Explore our data!</a>
     </div>
 </div>
 

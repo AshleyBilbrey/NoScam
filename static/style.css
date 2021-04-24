@@ -1,12 +1,146 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
 body {
-    background-color:lightcyan;
+    width: 100%;
+    height: 100%;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #072A40;
+}
+
+#nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+    background-color: #281B59;
+}
+
+#homenav {
+    margin-right: auto;
+}
+
+.navlink {
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    padding: 15px;
+    transition: 100ms linear;
+    z-index: 20;
+}
+
+.navlink:hover {
+    background-color: #A545BF;
 }
 
 #footer {
-    position:absolute;
-    bottom: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 10px;
+    font-size: 17px;
+    color: white;
+}
+
+a {
+    color: #A545BF;
 }
 
 #explore {
     display: none;
 }
+
+#center-content {
+    position: absolute;
+    top: 0;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#name {
+    font-size: 60px;
+    color:white;
+}
+
+.description {
+    font-size: 25px;
+    text-align: center;
+    color:white;
+    margin-top: 10px;
+}
+
+#buttons {
+    margin-top: 50px;
+}
+
+.navigation {
+    color: white;
+    background-color: #281B59;
+    padding: 20px;
+    text-decoration: none;
+    margin: 10px;
+    transition: 100ms linear;
+}
+
+.navigation:hover {
+    background-color: #A545BF;
+}
+
+#report-form {
+    font-size: 25px;
+    margin-top: 25px;
+    color: white;
+}
+
+input {
+    margin: 10px;
+}
+
+#submit {
+    color: white;
+    background-color: #04BF9D;
+    padding: 20px;
+    text-decoration: none;
+    margin: 10px;
+    transition: 100ms linear;
+}
+
+#submit:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+#messaging {
+    margin-top: 30px;
+}
+
+#valid {
+    color: #04BF9D;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+#invalid {
+    color: #F24B4B;
+    font-size: 20px;
+}
+
+#explore {
+    margin-top: 50px;
+}
+
+/* Color Theme Swatches in Hex 
+Light-Purple { color: #A545BF; }
+Dark-Purple { color: #281B59; }
+Dark { color: #072A40; }
+Aqua { color: #04BF9D; }
+Red { color: #F24B4B; }
+/*
