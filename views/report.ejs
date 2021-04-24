@@ -2,11 +2,29 @@
 
 <div id="center-content">
     <div id="name">Report Phone Scam</div>
-    <div id="description">Received a scam phone call? Report here so we can collect data and empower others.</div>
+    <div class="description">Received a scam phone call? Report here so we can collect data and empower others.</div>
     <div id="report-form">
-        <label for="phonenumber">Enter Phone Number:</label>
-        <input type="tel" id="phonenumber" name="phonenumber" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required> 
+        <label for="phonenumber">Scam Phone Number:</label>
+        <input type="tel" id="phonenumber" name="phonenumber" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+        <label for="scamtype">Scam Type</label>
+        <select id="scamtype" name="scamtype">
+            <option value="warranty">Fake Warranty</option>
+            <option value="amazon">Amazon Inpersonation</option>
+            <option value="tech-support">Fake Tech Support</option>
+            <option value="irs">IRS Inpersonation</option>
+        </select>
+    </div>
+    <div id="report-submit">
+        <button id="submit">Submit</button>
+    </div>
+    <div id="messaging">
+        <span id="valid"></span><span id="invalid"></span>
+    </div>
+    <div id="explore">
+        <a class="navigation">Explore our data!</a>
     </div>
 </div>
+
+<script src="report.js"></script> 
 
 <%- include('../partials/foot'); %>

@@ -1,0 +1,12 @@
+body {
+    background-color:lightcyan;
+}
+
+#footer {
+    position:absolute;
+    bottom: 0;
+}
+
+#explore {
+    display: none;
+}
