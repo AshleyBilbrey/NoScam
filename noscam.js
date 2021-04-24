@@ -52,6 +52,12 @@ app.get('/learn', function(req, res) {
     });
 });
 
+app.get('/explore', function(req, res) {
+    res.render('explore', {
+        pagename: 'Explore'
+    });
+});
+
 app.listen(port, () => {
   console.log(`NoScam listening at http://localhost:${port}`)
 });

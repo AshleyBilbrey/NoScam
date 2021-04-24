@@ -36,6 +36,15 @@ body {
 }
 
 #footer {
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 17px;
+    color: white;
+}
+
+#footerc {
     position: absolute;
     text-align: center;
     width: 100%;
@@ -68,13 +77,14 @@ a {
 #name {
     font-size: 60px;
     color:white;
+    text-align: center;
 }
 
 .description {
     font-size: 25px;
     text-align: center;
     color:white;
-    margin-top: 10px;
+    margin-top: 25px;
 }
 
 #buttons {
@@ -83,7 +93,7 @@ a {
 
 .navigation {
     color: white;
-    background-color: #281B59;
+    background-color: #A545BF;
     padding: 20px;
     text-decoration: none;
     margin: 10px;
@@ -91,7 +101,7 @@ a {
 }
 
 .navigation:hover {
-    background-color: #A545BF;
+    background-color: #281B59;
 }
 
 #report-form {
@@ -135,6 +145,33 @@ input {
 
 #explore {
     margin-top: 50px;
+}
+
+#content {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 50px;
+}
+
+.scamtype {
+    background-color: #281B59;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.exptype {
+    background-color: #281B59;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.bold {
+    font-weight: bold;
 }
 
 /* Color Theme Swatches in Hex 
