@@ -107,10 +107,15 @@ app.post('/report', async function(req, res) {
             //Adds area code, type, and time into a database
             let areacode = phonenumber.substr(0, 3);
             await reportdb.doc(currentTime.getTime().toString()).set({
-                date: [currentTime.getTime()],
-                type: [scamtype],
-                areacode: [areacode]
+                date: currentTime.getTime(),
+                type: scamtype,
+                areacode: areacode
             })
+
+            //Adds to counter
+            let counter = Number(typedbdoc.data().count) + 1;
+            console.log("New counter: " + counter);
+            await typedb.update({count: counter});
         } else {
             torespond.valid = false;
             torespond.message = "Sorry, there was an issue with your submission."
@@ -186,10 +191,10 @@ app.get('/explore/search/:phonenum', async function(req, res) {
             result += Math.floor((d.getTime() - numberdbdoc.data().lastreport) / 86400000);
             result += " days ago.";
             res.render('searchresult', {
-                red: [phonenum],
+                red: phonenum,
                 green: "",
-                results: [result],
-                pagename: [phonenum]
+                results: result,
+                pagename: phonenum
             });
         }
         
@@ -235,11 +240,52 @@ app.get('/explore/map', async function(req, res) {
         res.render('map', {
             pagename: 'Map',
             key: process.env.MAPS_KEY,
-            mapdata: [mapcoords]
+            mapdata: mapcoords
         });
     }, 500);
 
     
+})
+
+app.get('/explore/graphs', async function(req, res) {
+
+    let pieLabels = "";
+    let pieData = [];
+    let pieColors = "";
+
+    const typedb = await db.collection('scamtypes').get();
+
+    for(element in typedb.docs) {
+        const data = typedb.docs[element].data();
+        
+        pieLabels += "'" + data.name + "', ";
+        pieData.push(data.count);
+        pieColors += "'" + data.color + "', ";
+
+    }
+
+    let chartLabels = "'Today', '1 Day Ago', '2 Days Ago', '3 Days Ago', '4 Days Ago', '5 Days Ago'";
+    let chartColors = "'#BB5EFF', '#BB5EFF', '#BB5EFF', '#BB5EFF', '#BB5EFF', '#BB5EFF'"
+    let now = new Date();
+    let times = [(now.getTime()), (now.getTime() - 86400000), (now.getTime() - 172800000), (now.getTime() - 259200000), (now.getTime() - 345600000), (now.getTime() - 432000000), (now.getTime() - 518400000)];
+    let chartData = [];
+
+    const reportref = db.collection('reports');
+
+    for(let i = 0; i <= 5; i++) {
+        let count = await reportref.where("date", "<=", times[i]).where("date", ">", times[i+1]).get();
+        chartData.push(count.size);
+    }
+
+    res.render('graphs', {
+        pagename: "Graphs",
+        pieLabels: pieLabels,
+        pieColors: pieColors,
+        pieData: pieData,
+        chartLabels: chartLabels,
+        chartColors: chartColors,
+        chartData: chartData
+    })
 })
 
 app.get('/explore', function(req, res) {

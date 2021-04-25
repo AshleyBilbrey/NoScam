@@ -1,0 +1,61 @@
+<%- include('../partials/head'); %>
+<%- include('../partials/nav'); %>
+
+<div id="content">
+    <div id="name">Graphs</div>
+    <div class="description">Look at graphs of scam phone call reports. Analyze by date, by type, and more.</div>
+    <div class="chartbox">
+        <div class="description">Scam Calls by Type</div>
+        <canvas id="pieChart"></canvas>
+    </div>
+    <div class="chartbox">
+        <div class="description">Scam Calls Volume by Time</div>
+        <canvas id="barChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.0/dist/chart.min.js"></script>
+<script>
+
+var pieData = {
+    type: 'doughnut',
+    data: {
+        labels: [<%- pieLabels %>],
+        datasets: [{
+            label: 'Scam Calls by Type',
+            data: [<%- pieData %>],
+            backgroundColor: [<%- pieColors %>],
+            hoverOffset: 4
+        }]
+    }
+}
+
+var chartData = {
+    type: 'bar',
+    data: {
+        labels: [<%- chartLabels %>],
+        datasets: [{
+            label: 'Daily Reports',
+            data: [<%- chartData %>],
+            backgroundColor: [<%- chartColors %>],
+            borderColor: [<%- chartColors %>],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+}
+
+var ctx = document.getElementById('pieChart').getContext('2d');
+var pieChart = new Chart(ctx, pieData);
+var ctx2 = document.getElementById('barChart').getContext('2d');
+var barChart = new Chart(ctx2, chartData);
+
+</script>
+
+<%- include('../partials/foot'); %>

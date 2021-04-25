@@ -6,8 +6,12 @@ html {
 body {
     width: 100%;
     height: 100%;
-    font-family: 'Ubuntu', sans-serif;
-    background-color: #072A40;
+    font-family: 'Fira Sans', sans-serif;
+    background-color: white;
+}
+
+input, select {
+    border: 1px dashed;
 }
 
 #nav {
@@ -15,7 +19,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-content: center;
-    background-color: #281B59;
+    background-color: #9fe2bf;
 }
 
 #homenav {
@@ -23,7 +27,7 @@ body {
 }
 
 .navlink {
-    color: white;
+    color: black;
     font-size: 30px;
     text-decoration: none;
     padding: 15px;
@@ -32,7 +36,7 @@ body {
 }
 
 .navlink:hover {
-    background-color: #A545BF;
+    background-color: #caf7ff;
 }
 
 #footer {
@@ -41,7 +45,7 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
     font-size: 17px;
-    color: white;
+    color: black;
 }
 
 #footerc {
@@ -50,11 +54,11 @@ body {
     width: 100%;
     bottom: 10px;
     font-size: 17px;
-    color: white;
+    color: black;
 }
 
 a {
-    color: #A545BF;
+    color: #9fe2bf;
 }
 
 #explore {
@@ -76,14 +80,14 @@ a {
 
 #name {
     font-size: 60px;
-    color:white;
+    color:black;
     text-align: center;
 }
 
 .description {
     font-size: 25px;
     text-align: center;
-    color:white;
+    color:black;
     margin-top: 25px;
 }
 
@@ -92,8 +96,8 @@ a {
 }
 
 .navigation {
-    color: white;
-    background-color: #A545BF;
+    color: black;
+    background-color: #9fe2bf;
     padding: 20px;
     text-decoration: none;
     margin: 10px;
@@ -101,13 +105,13 @@ a {
 }
 
 .navigation:hover {
-    background-color: #281B59;
+    background-color: #0070c8;
 }
 
 #report-form {
     font-size: 20px;
     margin-top: 25px;
-    color: white;
+    color: black;
 }
 
 input {
@@ -115,8 +119,8 @@ input {
 }
 
 #submit {
-    color: white;
-    background-color: #04BF9D;
+    color: black;
+    background-color: #0070c8;
     padding: 20px;
     text-decoration: none;
     margin: 10px;
@@ -155,8 +159,8 @@ input {
 }
 
 .scamtype {
-    background-color: #281B59;
-    color: white;
+    background-color: #caf7ff;
+    color: black;
     font-size: 20px;
     padding: 20px;
     margin-top: 20px;
@@ -168,8 +172,8 @@ input {
 }
 
 .exptype {
-    background-color: #281B59;
-    color: white;
+    background-color: #caf7ff;
+    color: black;
     font-size: 20px;
     padding: 20px;
     margin-top: 20px;
@@ -197,8 +201,8 @@ img {
 }
 
 .rightnavigation {
-    color: white;
-    background-color: #A545BF;
+    color: black;
+    background-color: #9fe2bf;
     padding: 20px;
     text-decoration: none;
     margin: 10px;
@@ -207,13 +211,13 @@ img {
 }
 
 .rightnavigation:hover {
-    background-color: #281B59;
+    background-color: #0070c8;
 }
 
 #search-form {
     font-size: 20px;
     margin-top: 25px;
-    color: white;
+    color: black;
 }
 
 .green {
@@ -232,9 +236,15 @@ img {
 }
 
 #mapo {
-    background-color: #281B59;
+    background-color: #0070c8;
     width: 100%;
     height: 80vh;
+    margin-top: 50px;
+}
+
+.chartbox {
+    width: 50%;
+    margin: auto;
     margin-top: 50px;
 }
 
@@ -244,4 +254,12 @@ Dark-Purple { color: #281B59; }
 Dark { color: #072A40; }
 Aqua { color: #04BF9D; }
 Red { color: #F24B4B; }
-/*
+*/
+
+/* Seafoam colors
+Seafoam #9fe2bf
+Dark blue #0070c8
+Sky Blue #caf7ff
+grayish blue #6a96b0
+
+*/
