@@ -37,8 +37,22 @@ app.get('/', async function(req, res) {
     
 });
 
-app.get('/report', function(req, res) {
+app.get('/report', async function(req, res) {
+    let options = "";
+    const typedb = await db.collection('scamtypes').get();
+    for(element in typedb.docs) {
+        const data = typedb.docs[element].data();
+        if(data.code != "other") {
+            options += "<option value='";
+            options += data.code;
+            options += "'>";
+            options += data.name;
+            options += "</option>";
+        }
+    }
+
     res.render('report', {
+        options: [options],
         pagename: "Report"
     });
 });
@@ -97,10 +111,30 @@ app.post('/report', async function(req, res) {
     }
 });
 
-app.get('/learn', function(req, res) {
+app.get('/learn', async function(req, res) {
+
+    let body = ""
+    const typedb = await db.collection('scamtypes').get();
+    for(element in typedb.docs) {
+        const data = typedb.docs[element].data()
+        
+        if(data.name != "Other") {
+            body += "<div class='scamtype'><div class='scamtextcontainer'><div class='typename'><span class='bold'>"
+            body += data.name;
+            body += "</span></div><div class='typedesc'>";
+            body += data.description;
+            body += "</div></div><a class='rightnavigation' href='"
+            body += data.source;
+            body += "'>Source</a></div>"
+        }
+    }
+
     res.render('learn', {
+        body: [body],
         pagename: "Learn"
     });
+
+    
 });
 
 app.get('/explore/search/:phonenum', async function(req, res) {
