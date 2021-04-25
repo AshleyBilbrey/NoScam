@@ -1,4 +1,8 @@
 document.getElementById('submit').addEventListener('click', function() {
+    sendReport();
+});
+
+function sendReport() {
     let topost = {
         phonenumber: document.getElementById('phonenumber').value,
         scamtype: document.getElementById('scamtype').value
@@ -31,4 +35,4 @@ document.getElementById('submit').addEventListener('click', function() {
             document.getElementById("invalid").innerText = json.message;
         }
     });
-});
+}

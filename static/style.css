@@ -160,6 +160,11 @@ input {
     font-size: 20px;
     padding: 20px;
     margin-top: 20px;
+    display: flex;
+}
+
+.scamtextcontainer {
+    max-width: 80%;
 }
 
 .exptype {
@@ -172,6 +177,58 @@ input {
 
 .bold {
     font-weight: bold;
+}
+
+.exptype {
+    display: flex;
+    /*flex-wrap: wrap;*/
+    word-wrap: normal;
+    align-items: center;
+    width: 100%;
+}
+
+.exptext {
+    max-width: 75%;
+}
+
+img {
+    height: 50px;
+    padding: 10px;
+}
+
+.rightnavigation {
+    color: white;
+    background-color: #A545BF;
+    padding: 20px;
+    text-decoration: none;
+    margin: 10px;
+    transition: 100ms linear;
+    margin-left: auto;
+}
+
+.rightnavigation:hover {
+    background-color: #281B59;
+}
+
+#search-form {
+    font-size: 25px;
+    margin-top: 25px;
+    color: white;
+}
+
+.green {
+    color: #04BF9D;
+}
+
+.red {
+    color: #F24B4B;
+}
+
+#centerbuttons {
+    margin-top: 50px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 /* Color Theme Swatches in Hex 

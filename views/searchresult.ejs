@@ -1,0 +1,18 @@
+<%- include('../partials/head'); %>
+<%- include('../partials/nav'); %>
+
+<div id="content">
+    <div id="name"><span class="green"><%= green %></span><span class="red"><%= red %></span></div>
+    <div class="description">
+        Search Results:<br>
+        <%- results %>
+    </div>
+
+    <div id="centerbuttons">
+        <a class="navigation" href="/explore/search">Search Again</a>
+        <a class="navigation" href="/learn">Learn More</a>
+    </div>
+</div>
+
+
+<%- include('../partials/foot'); %>

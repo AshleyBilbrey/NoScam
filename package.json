@@ -9,6 +9,7 @@
   "author": "Ashley Bilbrey",
   "dependencies": {
     "ejs": "^3.1.6",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "firebase-admin": "^9.6.0"
   }
 }

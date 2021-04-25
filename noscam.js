@@ -4,17 +4,37 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+
+//Firebase Database
+const admin = require('firebase-admin');
+const serviceAccount = require('./serviceAccountKey.json');
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+const db = admin.firestore();
+
+
+//Set Views
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
+//Set static file directory and json compatibility
 app.use(express.json());
 app.use(express.static('static'));
 
-app.get('/', function(req, res) {
-    res.render('index', {
-        callcount: 5,
-        pagename: "Home"
+app.get('/', async function(req, res) {
+    let count = 0;
+    db.collection("reports")
+    .get()
+    .then((logs) => {
+        res.render('index', {
+            callcount: logs.size,
+            pagename: "Home"
+        });
     });
+    
 });
 
 app.get('/report', function(req, res) {
@@ -23,7 +43,7 @@ app.get('/report', function(req, res) {
     });
 });
 
-app.post('/report', function(req, res) {
+app.post('/report', async function(req, res) {
     console.log("New Report");
     console.log(req.body);
     let phonenumber = req.body.phonenumber;
@@ -36,19 +56,77 @@ app.post('/report', function(req, res) {
     if(!phonenumber.match("[0-9]{3}-[0-9]{3}-[0-9]{4}")) {
         torespond.valid = false;
         torespond.message = "Invalid Phone Number"
-    }
+        res.json(torespond);
+    } else {
 
-    if(false) {
-        //Check if valid selection
-    }
+        const numberdb = db.collection('numbers').doc(phonenumber);
+        const numberdbdoc = await numberdb.get();
+        const typedb = db.collection('scamtypes').doc(scamtype);
+        const typedbdoc = await typedb.get();
+        const reportdb = db.collection('reports');
 
-    //Record report in database
-    res.json(torespond);
+        if(typedbdoc.exists) {
+            res.json(torespond);
+            let currentTime = new Date();
+            //Records information about the specific phone number
+            if(numberdbdoc.exists) {
+                if(numberdbdoc.data()[scamtype] != null) {
+                    let newnum = numberdbdoc.data()[scamtype] + 1;
+                    await numberdb.update({[scamtype]: newnum});
+                } else {
+                    await numberdb.update({[scamtype]: 1});
+                }
+            } else {
+                await numberdb.set({
+                    [scamtype]: 1,
+                    "lastreport": currentTime.getTime()
+                })
+            }
+
+            //Adds area code, type, and time into a database
+            let areacode = phonenumber.substr(0, 3);
+            await reportdb.doc(currentTime.getTime().toString()).set({
+                type: [scamtype],
+                areacode: [areacode]
+            })
+        } else {
+            torespond.valid = false;
+            torespond.message = "Sorry, there was an issue with your submission."
+            res.json(torespond);
+        }
+    }
 });
 
 app.get('/learn', function(req, res) {
     res.render('learn', {
         pagename: "Learn"
+    });
+});
+
+app.get('/explore/search/:phonenum', function(req, res) {
+    
+    let phonenum = req.params.phonenum;
+    if(!phonenum.match("[0-9]{3}-[0-9]{3}-[0-9]{4}")) {
+        res.render('searchresult', {
+            red: "Invalid Phone Number",
+            green: "",
+            results: "<span class='red'>Please try again.</span>",
+            pagename: "Invalid Search"
+        });
+    } else {
+        res.render('searchresult', {
+            red: "",
+            green: "Valid Phone Number",
+            results: "No reports found, but that doesn't mean this phone number isn't a scam! Be vigilant!",
+            pagename: [phonenum]
+        })
+    }
+    
+});
+
+app.get('/explore/search', function(req, res) {
+    res.render('search', {
+        pagename: 'Search'
     });
 });
 
