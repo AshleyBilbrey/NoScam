@@ -105,7 +105,7 @@ a {
 }
 
 #report-form {
-    font-size: 25px;
+    font-size: 20px;
     margin-top: 25px;
     color: white;
 }
@@ -211,7 +211,7 @@ img {
 }
 
 #search-form {
-    font-size: 25px;
+    font-size: 20px;
     margin-top: 25px;
     color: white;
 }
@@ -229,6 +229,13 @@ img {
     display: flex;
     width: 100%;
     justify-content: center;
+}
+
+#mapo {
+    background-color: #281B59;
+    width: 100%;
+    height: 80vh;
+    margin-top: 50px;
 }
 
 /* Color Theme Swatches in Hex 

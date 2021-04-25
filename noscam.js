@@ -4,6 +4,9 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+require('dotenv').config()
+const csv = require('csv-parser');
+const fs = require('fs');
 
 //Firebase Database
 const admin = require('firebase-admin');
@@ -69,7 +72,11 @@ app.post('/report', async function(req, res) {
 
     if(!phonenumber.match("[0-9]{3}-[0-9]{3}-[0-9]{4}")) {
         torespond.valid = false;
-        torespond.message = "Invalid Phone Number"
+        torespond.message = "Invalid phone number.";
+        res.json(torespond);
+    } else if(scamtype == '') {
+        torespond.valid = false;
+        torespond.message = "You must select a type.";
         res.json(torespond);
     } else {
 
@@ -100,6 +107,7 @@ app.post('/report', async function(req, res) {
             //Adds area code, type, and time into a database
             let areacode = phonenumber.substr(0, 3);
             await reportdb.doc(currentTime.getTime().toString()).set({
+                date: [currentTime.getTime()],
                 type: [scamtype],
                 areacode: [areacode]
             })
@@ -194,6 +202,45 @@ app.get('/explore/search', function(req, res) {
         pagename: 'Search'
     });
 });
+
+/*fs.createReadStream('us-area-code-geo.csv')
+.pipe(csv())
+.on('data', (row) => {
+    console.log(row);
+})*/
+
+app.get('/explore/map', async function(req, res) {
+    let mapcoords = "";
+
+    //O(n^2), could be O(n)
+
+    const csvstream = fs.createReadStream('us-area-code-geo.csv').pipe(csv())
+
+    const reportdb = await db.collection('reports').get()
+
+    for(element in reportdb.docs) {
+        const data = reportdb.docs[element].data();
+
+        csvstream.on('data', (row) => {
+            if(row.code == data.areacode) {
+                console.log("Found match with area code " + row.code);
+                mapcoords += "new google.maps.LatLng(" + row.lat + ", " + row.long + "),"
+            }
+        })
+    }
+
+    setTimeout(() => {
+        console.log("Map Coords: " + mapcoords);
+
+        res.render('map', {
+            pagename: 'Map',
+            key: process.env.MAPS_KEY,
+            mapdata: [mapcoords]
+        });
+    }, 500);
+
+    
+})
 
 app.get('/explore', function(req, res) {
     res.render('explore', {

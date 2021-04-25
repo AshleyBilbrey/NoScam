@@ -117,3 +117,6 @@ dist
 
 #firebase
 serviceAccountKey.json
+
+#dotenv
+.env

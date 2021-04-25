@@ -1,0 +1,41 @@
+<%- include('../partials/head'); %>
+<%- include('../partials/nav'); %>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+<script>
+    let map, heatmap
+
+    function initMap() {
+        var heatMapData = [
+            <%- mapdata %>
+            new google.maps.LatLng(37.782551, -122.445368)
+        ];
+
+        var center = new google.maps.LatLng(38.0000, -97.0000);
+
+        map = new google.maps.Map(document.getElementById('mapo'), {
+            center: center,
+            zoom: 4,
+        });
+
+        heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatMapData
+        });
+        heatmap.setMap(map);
+        heatmap.set("radius", 20)
+
+    }
+</script>
+
+<div id="content">
+    <div id="name">Map</div>
+    <div class="description">Look at where spam calls are coming from on a map, determined by phone number area code.</div>
+    <div id="mapo"></div>
+    
+</div>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%- key %>&callback=initMap&libraries=visualization" async></script>
+
+<%- include('../partials/foot'); %>
