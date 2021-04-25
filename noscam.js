@@ -103,9 +103,12 @@ app.get('/learn', function(req, res) {
     });
 });
 
-app.get('/explore/search/:phonenum', function(req, res) {
+app.get('/explore/search/:phonenum', async function(req, res) {
     
     let phonenum = req.params.phonenum;
+    console.log("New Search");
+    console.log(phonenum);
+
     if(!phonenum.match("[0-9]{3}-[0-9]{3}-[0-9]{4}")) {
         res.render('searchresult', {
             red: "Invalid Phone Number",
@@ -114,12 +117,40 @@ app.get('/explore/search/:phonenum', function(req, res) {
             pagename: "Invalid Search"
         });
     } else {
-        res.render('searchresult', {
-            red: "",
-            green: "Valid Phone Number",
-            results: "No reports found, but that doesn't mean this phone number isn't a scam! Be vigilant!",
-            pagename: [phonenum]
-        })
+        const numberdb = db.collection('numbers').doc(phonenum);
+        const numberdbdoc = await numberdb.get();
+        const typedb = db.collection('scamtypes');
+
+        if(!numberdbdoc.exists) {
+            res.render('searchresult', {
+                red: "",
+                green: [phonenum],
+                results: "No reports found, but that doesn't mean this phone number isn't a scam! Be vigilant!",
+                pagename: [phonenum]
+            });
+        } else {
+            let result = "";
+            for(property in numberdbdoc.data()) {
+                if(property != "lastreport") {
+                    const typedbdoc = await typedb.doc(property).get();
+                    result += typedbdoc.data().name;
+                    result += ": <span class='red'>";
+                    result += numberdbdoc.data()[property];
+                    result += " Reports</span><br>";
+                }
+            }
+            result += "Last report for this number was ";
+            let d = new Date();
+            result += Math.floor((d.getTime() - numberdbdoc.data().lastreport) / 86400000);
+            result += " days ago.";
+            res.render('searchresult', {
+                red: [phonenum],
+                green: "",
+                results: [result],
+                pagename: [phonenum]
+            });
+        }
+        
     }
     
 });
