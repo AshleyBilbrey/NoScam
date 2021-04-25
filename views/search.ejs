@@ -6,7 +6,7 @@
     <div class="description">Search a specific phone number and see if it's been reported before.</div>
     <div id="search-form">
         <label for="phonenumber">Phone Number (US)</label>
-        <input type="tel" id="phonenumber" name="phonenumber" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+        <input type="tel" id="phonenumber" name="phonenumber" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onkeyup="searchKeyPress(event)" required>
     </div>
     <div id="search-submit">
         <button id="submit">Submit</button>

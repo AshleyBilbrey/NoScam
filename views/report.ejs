@@ -6,7 +6,7 @@
     <div class="description">Received a scam phone call? Report here so we can collect data and empower others.</div>
     <div id="report-form">
         <label for="phonenumber">Scam Phone Number (US)</label>
-        <input type="tel" id="phonenumber" name="phonenumber" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+        <input type="tel" id="phonenumber" name="phonenumber" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onkeyup="reportKeyPress()" required>
         <label for="scamtype">Scam Type</label>
         <select id="scamtype" name="scamtype">
             <option selected disabled hidden style='display: none' value=''></option>
