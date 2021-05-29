@@ -1,4 +1,6 @@
 # NoScam
+ [View the full information page and demo video here.](https://devpost.com/software/noscam)
+
  Empower yourself and others by learning about phone scams, reporting phone scam attempts, and visualizing data.
 
  This project was a part of Lovelace Hacks 2021.    
